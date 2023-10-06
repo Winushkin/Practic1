@@ -97,12 +97,13 @@ int main(){
 
                 int order4 = sizeof(varD) * 8 - 1;
                 unsigned int mask4;
-                mask4 = 1 << order4;
+                mask4 = 1 << 31;
 
                 cout << "Введите вещественное число: ";
                 cin >> varD;
 
                 cout << "Двоичное представление в памяти числа " << varD << " типа Double\n";
+
 
                 for (int i = 0; i <= (order4 / 2); ++i) {
                     cout << ((mask4 & arr[1]) ? 1 : 0);
@@ -112,10 +113,13 @@ int main(){
                     }
                 }
 
+                mask4 = 1 << 31;
+                
                 for (int i = 0; i <= (order4 / 2); ++i) {
                     cout << ((mask4 & arr[0]) ? 1 : 0);
                     mask4 >>= 1;
                 }
+
                 cout << "\n";
                 break;
             }
@@ -125,7 +129,3 @@ int main(){
     }
     return 0;
 }
-
-
-
-
