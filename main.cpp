@@ -1,17 +1,16 @@
 #include "iostream"
 using namespace std;
 
-int main(){
-    for(int i = 1; i < 10; ++i){
+int main() {
+    for (int i = 1; i < 10; ++i) {
 
         int num;
         cout << "\nВведите номер задания: ";
         cin >> num;
 
-        if (num >= 1 && num <= 4){
+        if (num >= 1 && num <= 4) {
 
-            if (num == 1)
-            {
+            if (num == 1) {
                 cout <<
                      "Выделенное кол-во памяти на разные типы данных:\n"
                      "int: " << sizeof(int) << "\n" <<
@@ -22,8 +21,7 @@ int main(){
                      "long double: " << sizeof(long double) << "\n" <<
                      "char: " << sizeof(char) << "\n" <<
                      "bool: " << sizeof(bool) << "\n";
-            }
-            else if (num == 2) {
+            } else if (num == 2) {
                 int n;
                 int order1;
                 int mask1;
@@ -31,34 +29,30 @@ int main(){
                 order1 = sizeof(int) * 8 - 1;
                 mask1 = 1 << order1;
 
+                cout << "Введите число типа int: ";
+                cin >> n;
 
-                for (int i = 1; i > -1; ++i) {
-                    cout << "Введите число типа int: ";
-                    cin >> n;
+                cout << "num = " << n << ", адрес - " << &n << "\n";
+                cout << "Двоичное представление числа " << n << ":\n";
 
-                    cout << "num = " << n << ", адрес - " << &n << "\n";
-                    cout << "Двоичное представление числа " << n << ":\n";
-
-                    for (int i = 0; i <= order1; ++i) {
-                        cout << ((n & mask1) ? 1 : 0);
-                        n <<= 1;
-                        //Это просто нормальный вывод
-                        if (i <= 7) {
-                            if (!i || i == 7) {
-                                cout << " ";
-                            }
-                        } else {
-                            if (!((i + 1) % 8)) {
-                                cout << " ";
-                            }
+                for (int i = 0; i <= order1; ++i) {
+                    cout << ((n & mask1) ? 1 : 0);
+                    n <<= 1;
+                    //Это просто нормальный вывод
+                    if (i <= 7) {
+                        if (!i || i == 7) {
+                            cout << " ";
                         }
-
+                    } else {
+                        if (!((i + 1) % 8)) {
+                            cout << " ";
+                        }
                     }
-                    cout << "\n";
+
                 }
-            }
-            else if (num == 3)
-            {
+                cout << "\n";
+                
+            } else if (num == 3) {
                 union {
                     int varI;
                     float varF;
@@ -84,9 +78,7 @@ int main(){
                     }
                 }
                 cout << "\n";
-            }
-            else if (num == 4)
-            {
+            } else if (num == 4) {
                 union {
                     int arr[2];
                     double varD;
@@ -118,14 +110,12 @@ int main(){
                 }
 
                 cout << "\n";
+            } else {
+                cout << "Всего 4 задания";
             }
 
-        }
-        else
-        {
-            cout << "Всего 4 задания";
-        }
 
+        }
 
     }
     return 0;
