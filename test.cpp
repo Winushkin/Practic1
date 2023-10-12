@@ -2,6 +2,21 @@
 
 using namespace std;
 
+union fl {
+    int numI;
+    float numF;
+};
+
+union db{
+    double numD;
+    int arr [2];
+};
+
+union fl fl;
+union db db;
+unsigned int mask;
+int order;
+
 void pr1() {
     cout <<
         "Выделенное кол-во памяти(в байтах) на разные типы данных:\n"
@@ -17,8 +32,6 @@ void pr1() {
 
 
 void pr2(int num){
-    int order;
-    unsigned mask;
     cout << "\nДвоичное представление числа " << num << ":\n";
     order = sizeof(int) * 8;
     mask = 1 << (order - 1);
@@ -34,22 +47,13 @@ void pr2(int num){
 }
 
 
-void pr3(){
-    union {
-        int numI;
-        float numF;
-    };
-
-    unsigned int mask, order;
-    cout << "";
-    cout << "Введите вещественное число: ";
-    cin >> numF;
-    cout << "\nДвоичное представление числа " << numF << ":\n";
-    order = sizeof(numF) * 8;
+void pr3(union fl num){
+    cout << "\nДвоичное представление числа " << num.numF << ":\n";
+    order = sizeof(num.numF) * 8;
     mask = 1 << (order - 1);
 
     for (int i = 0; i < order; ++i){
-        cout << ((numI & mask)? 1 : 0);
+        cout << ((num.numI & mask)? 1 : 0);
         mask >>= 1;
         if (!i){
             cout << " ";
@@ -59,22 +63,13 @@ void pr3(){
 }
 
 
-void pr4(){
-    union {
-        double numD;
-        int arr [2];
-    };
-
-    unsigned int mask, order;
-    cout << "";
-    cout << "Введите вещественное число: ";
-    cin >> numD;
-    cout << "\nДвоичное представление числа " << numD << ":\n";
-    order = sizeof(numD) * 8;
+void pr4(union db num){
+    cout << "\nДвоичное представление числа " << num.numD << ":\n";
+    order = sizeof(num.numD) * 8;
     mask = 1 << (order - 1);
 
     for (int i = 0; i < order / 2; ++i){
-        cout << ((arr[1] & mask)? 1 : 0);
+        cout << ((num.arr[1] & mask)? 1 : 0);
         mask >>= 1;
         if (!i || i == 11){
             cout << " ";
@@ -84,7 +79,7 @@ void pr4(){
     mask = 1 << (order - 1);
 
     for (int i = 0; i < order / 2; ++i){
-        cout << ((arr[0] & mask)? 1 : 0);
+        cout << ((num.arr[0] & mask)? 1 : 0);
         mask >>= 1;
     }
     cout << "\n\n";
@@ -111,11 +106,15 @@ int main() {
                 break;
 
             case 3:
-                pr3();
+                cout << "Введите вещественное число: ";
+                cin >> fl.numF;
+                pr3(fl);
                 break;
 
             case 4:
-                pr4();
+                cout << "Введите вещественное число: ";
+                cin >> db.numD;
+                pr4(db);
                 break;
 
             default:
