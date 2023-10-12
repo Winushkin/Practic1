@@ -12,10 +12,22 @@ union db{
     int arr [2];
 };
 
+struct unions{
+    union fl flUnion;
+    union db dbUnion;
+    int numI;
+
+};
+
 union fl fl;
 union db db;
+struct unions uns;
 unsigned int mask;
 int order;
+int changeBit, newNum, num;
+
+
+
 
 void pr1() {
     cout <<
@@ -43,7 +55,7 @@ void pr2(int num){
             cout << " ";
         }
     }
-    cout << "\n\n";
+    cout << "\n";
 }
 
 
@@ -59,7 +71,7 @@ void pr3(union fl num){
             cout << " ";
         }
     }
-    cout << "\n\n";
+    cout << "\n";
 }
 
 
@@ -82,7 +94,110 @@ void pr4(union db num){
         cout << ((num.arr[0] & mask)? 1 : 0);
         mask >>= 1;
     }
-    cout << "\n\n";
+    cout << "\n";
+}
+
+
+void idz(struct unions funs, int problemNum){
+    cout << "\nКакие биты изменить(вводить поочередно, по завершении -1)?: \n";
+
+    switch (problemNum) {
+        case 2:
+            while (true){
+                cout << "Введите номер бита: ";
+                cin >> changeBit;
+                if (changeBit == -1){
+                    break;
+                }else if (changeBit < 0 || changeBit >= 32){
+                    cout << "Неверный ввод\n";
+                }else{
+                    newNum = pow(2, changeBit);
+                    funs.numI ^= newNum;
+                }
+            }
+            mask = 1 << 31;
+
+            cout << "\n";
+            for (int i = 0; i < order; ++i){
+                cout << ((funs.numI & mask) ? 1 : 0);
+                mask >>= 1;
+                if (!i || !((i + 1) % 8)){
+                    cout << " ";
+                }
+            }
+            cout << "\n\n";
+
+            break;
+
+        case 3:
+            while (true){
+                cout << "Введите номер бита: ";
+                cin >> changeBit;
+                if (changeBit == -1){
+                    break;
+                }else if (changeBit < 0 || changeBit >= 32){
+                    cout << "Неверный ввод\n";
+                }else{
+                    newNum = pow(2, changeBit);
+                    funs.flUnion.numI ^= newNum;
+                }
+            }
+            mask = 1 << 31;
+
+            cout << "\n";
+            for (int i = 0; i < order; ++i){
+                cout << ((funs.flUnion.numI & mask) ? 1 : 0);
+                mask >>= 1;
+                if (!i){
+                    cout << " ";
+                }
+
+            }
+            cout << "\n\n";
+            break;
+
+        case 4:
+            while (true){
+                cout << "Введите номер бита: ";
+                cin >> changeBit;
+                if (changeBit == -1){
+                    break;
+                }else if (changeBit < 0 || changeBit >= 64){
+                    cout << "Неверный ввод\n";
+                }else{
+                    if (changeBit <= 31) {
+                        newNum = pow(2, changeBit);
+                        funs.dbUnion.arr[0] ^= newNum;
+                    }else{
+                        newNum = pow(2, changeBit - 32);
+                        funs.dbUnion.arr[1] ^= newNum;
+                    }
+                }
+            }
+            mask = 1 << 31;
+
+            cout << "\n";
+            for (int i = 0; i < 32; ++i){
+                cout << ((funs.dbUnion.arr[1] & mask)? 1 : 0);
+                mask >>= 1;
+                if (!i || i == 11){
+                    cout << " ";
+                }
+            }
+
+            mask = 1 << 31;
+            cout << " ";
+
+            for (int i = 0; i < 32; ++i){
+                cout << ((funs.dbUnion.arr[0] & mask)? 1 : 0);
+                mask >>= 1;
+            }
+            cout << "\n\n";
+
+            break;
+
+
+    }
 }
 
 
@@ -99,22 +214,25 @@ int main() {
                 break;
 
             case 2:
-                int num;
                 cout << "Введите целое число: ";
-                cin >> num;
-                pr2(num);
+                cin >> uns.numI;
+                pr2(uns.numI);
+                idz(uns, 2);
+
                 break;
 
             case 3:
                 cout << "Введите вещественное число: ";
-                cin >> fl.numF;
-                pr3(fl);
+                cin >> uns.flUnion.numF;
+                pr3(uns.flUnion);
+                idz(uns, 3);
                 break;
 
             case 4:
                 cout << "Введите вещественное число: ";
-                cin >> db.numD;
-                pr4(db);
+                cin >> uns.dbUnion.numD;
+                pr4(uns.dbUnion);
+                idz(uns, 4);
                 break;
 
             default:
