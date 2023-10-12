@@ -16,7 +16,6 @@ struct unions{
     union fl flUnion;
     union db dbUnion;
     int numI;
-
 };
 
 union fl fl;
@@ -24,22 +23,20 @@ union db db;
 struct unions uns;
 unsigned int mask;
 int order;
-int changeBit, newNum, num;
-
-
+int changeBit, newNum;
 
 
 void pr1() {
     cout <<
-        "Выделенное кол-во памяти(в байтах) на разные типы данных:\n"
-        "int: " << sizeof(int) << "\n" <<
-        "short int: " << sizeof(short int) << "\n" <<
-        "long int: " << sizeof(long int) << "\n" <<
-        "float: " << sizeof(float) << "\n" <<
-        "double: " << sizeof(double) << "\n" <<
-        "long double: " << sizeof(long double) << "\n" <<
-        "char: " << sizeof(char) << "\n" <<
-        "bool: " << sizeof(bool) << "\n\n";
+         "Выделенное кол-во памяти(в байтах) на разные типы данных:\n"
+         "int: " << sizeof(int) << "\n" <<
+         "short int: " << sizeof(short int) << "\n" <<
+         "long int: " << sizeof(long int) << "\n" <<
+         "float: " << sizeof(float) << "\n" <<
+         "double: " << sizeof(double) << "\n" <<
+         "long double: " << sizeof(long double) << "\n" <<
+         "char: " << sizeof(char) << "\n" <<
+         "bool: " << sizeof(bool) << "\n\n";
 }
 
 
@@ -218,7 +215,6 @@ int main() {
                 cin >> uns.numI;
                 pr2(uns.numI);
                 idz(uns, 2);
-
                 break;
 
             case 3:
@@ -237,6 +233,7 @@ int main() {
 
             default:
                 cout << "Доступно только 4 задания\n\n";
+                break;
         }
     }
 }
